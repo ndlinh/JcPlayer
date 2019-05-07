@@ -171,9 +171,11 @@ class JcPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.O
         jcStatus.jcAudio = jcAudio
         jcStatus.playState = status
 
-        mediaPlayer?.let {
-            jcStatus.duration = it.duration.toLong()
-            jcStatus.currentPosition = it.currentPosition.toLong()
+        if (status != JcStatus.PlayState.PREPARING) {
+            mediaPlayer?.let {
+                jcStatus.duration = it.duration.toLong()
+                jcStatus.currentPosition = it.currentPosition.toLong()
+            }
         }
 
         when (status) {
